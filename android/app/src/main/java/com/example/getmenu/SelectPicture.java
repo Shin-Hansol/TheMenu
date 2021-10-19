@@ -10,9 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -21,15 +21,23 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SelectPicture extends AppCompatActivity{
 
@@ -40,9 +48,16 @@ public class SelectPicture extends AppCompatActivity{
     private String imageFilePath;
     private String encodedImage;  // 인코딩된 이미지 파일
     private Uri photoUri;
+    private Retrofit retrofit;
+    private ApiService service;
+
+    private File photoFile = null;
+
 
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     private static final int REQUEST_IMAGE_LOAD = 101;
+    private final String URL = "http://10.0.2.2:3000/";
+    private final String TAG = "TestLog";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,18 +81,52 @@ public class SelectPicture extends AppCompatActivity{
         test.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                //String sMessage = "abctest"; // 보내는 메시지를 받아옴
-                //String result = SendByHttp(sMessage); // 메시지를 서버에 보냄
-                //String[][] parsedData = jsonParserList(); // 받은 메시지를 json 파싱
-                //tvRecvData.setText(result); // 받은 메시지를 화면에 보여주기
+                sendImage();
             }
         });
     }
 
+    private void sendImage(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        service = retrofit.create(ApiService.class);
+
+        RequestBody reqFile = RequestBody.create(photoFile, MediaType.parse("image/*"));
+        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", photoFile.getName(), reqFile);
+        RequestBody name = RequestBody.create("upload", MediaType.parse("text/plain"));
+
+        Call<ResponseBody> call_post = service.postImage(body, name);
+        call_post.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String result = response.body().string();
+                        Log.v(TAG, "result = " + result);
+                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.v(TAG, "error = " + String.valueOf(response.code()));
+                    Toast.makeText(getApplicationContext(), "error = " + String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.v(TAG, "Fail");
+                Toast.makeText(getApplicationContext(), "Response Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
     private void takePhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
@@ -119,18 +168,31 @@ public class SelectPicture extends AppCompatActivity{
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), a, true);
     }
 
+    public void saveBitmapToJpg(Bitmap bitmap , String name) {
+        File storage = getCacheDir(); //  path = /data/user/0/YOUR_PACKAGE_NAME/cache
+        String fileName = name + ".jpg";
+        File imgFile = new File(storage, fileName);
+        try {
+            imgFile.createNewFile();
+            FileOutputStream out = new FileOutputStream(imgFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); //썸네일로 사용하므로 퀄리티를 낮게설정
+            out.close();
+        } catch (FileNotFoundException e) {
+            Log.e("saveBitmapToJpg","FileNotFoundException : " + e.getMessage());
+        } catch (IOException e) {
+            Log.e("saveBitmapToJpg","IOException : " + e.getMessage());
+        }
+        Log.d("imgPath" , getCacheDir() + "/" +fileName);
+        photoFile = imgFile;
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) { // 사진 카메라로 찍기
             Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath);
             ExifInterface exif = null;
-
-            //Bitmap transfer = null;
-            //transfer.createScaledBitmap(bitmap,256,256,true);
-            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            //transfer.compress(Bitmap.CompressFormat.JPEG, 70, baos);
-            //String encoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
 
             try {
                 exif = new ExifInterface(imageFilePath);
@@ -160,6 +222,7 @@ public class SelectPicture extends AppCompatActivity{
 
             imageView.setImageBitmap(rotated);
 
+
             ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
             rotated.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayBitmapStream);
             byte[] b = byteArrayBitmapStream.toByteArray();
@@ -173,6 +236,8 @@ public class SelectPicture extends AppCompatActivity{
                 InputStream instream = resolver.openInputStream(fileUri);
                 Bitmap imgBitmap = BitmapFactory.decodeStream(instream);
                 imageView.setImageBitmap(imgBitmap);    // 선택한 이미지 이미지뷰에 셋
+
+                saveBitmapToJpg(imgBitmap, "temp");
 
                 ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
                 imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayBitmapStream);

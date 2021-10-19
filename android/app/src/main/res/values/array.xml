@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="source_language_array">
-        <item>-- Select Source Language --</item>
         <item>Afrikaans</item>
         <item>Amharic</item>
         <item>Arabic</item>
         <item>Assamese</item>
         <item>Azerbaijani</item>
-        <item>Azerbaijani - Cyrilic</item>
         <item>Belarusian</item>
         <item>Bengali</item>
         <item>Tibetan</item>
@@ -113,7 +111,6 @@
     </string-array>
 
     <string-array name="dest_language_array">
-        <item>-- Select Source Language --</item>
         <item>afrikaans</item>
         <item>albanian</item>
         <item>amharic</item>

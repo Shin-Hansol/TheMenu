@@ -8,10 +8,17 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    private Spinner srcSpinner, dstSpinner;
+    private String srcLang, dstLang;
+    private ArrayAdapter<String> srcAdapter, dstAdapter;
+    private String[] srcItems, dstItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,40 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SelectPicture.class);
                 startActivity(intent);
+            }
+        });
+
+        srcItems = getResources().getStringArray(R.array.source_language_array);
+        srcSpinner = findViewById(R.id.spinnerSource);
+        srcAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, srcItems);
+        srcAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        srcSpinner.setAdapter(srcAdapter);
+        srcSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                srcLang = srcItems[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        dstItems = getResources().getStringArray(R.array.dest_language_array);
+        dstSpinner = findViewById(R.id.spinnerDest);
+        dstAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dstItems);
+        dstAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dstSpinner.setAdapter(dstAdapter);
+        dstSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                srcLang = dstItems[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }

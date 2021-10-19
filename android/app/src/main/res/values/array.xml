@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="source_language_array">
+        <item>-- Select Source Language --</item>
+        <item>Afrikaans</item>
+        <item>Amharic</item>
+        <item>Arabic</item>
+        <item>Assamese</item>
+        <item>Azerbaijani</item>
+        <item>Azerbaijani - Cyrilic</item>
+        <item>Belarusian</item>
+        <item>Bengali</item>
+        <item>Tibetan</item>
+        <item>Bosnian</item>
+        <item>Breton</item>
+        <item>Bulgarian</item>
+        <item>Catalan; Valencian</item>
+        <item>Cebuano</item>
+        <item>Czech</item>
+        <item>Chinese - Simplified</item>
+        <item>Chinese - Traditional</item>
+        <item>Cherokee</item>
+        <item>Corsican</item>
+        <item>Welsh</item>
+        <item>Danish</item>
+        <item>German</item>
+        <item>Dzongkha</item>
+        <item>English</item>
+        <item>Esperanto</item>
+        <item>Estonian</item>
+        <item>Basque</item>
+        <item>Faroese</item>
+        <item>Persian</item>
+        <item>Filipino</item>
+        <item>Finnish</item>
+        <item>French</item>
+        <item>German - Fraktur</item>
+        <item>Western Frisian</item>
+        <item>Scottish Gaelic</item>
+        <item>Irish</item>
+        <item>Galician</item>
+        <item>Gujarati</item>
+        <item>Haitian</item>
+        <item>Hebrew</item>
+        <item>Hindi</item>
+        <item>Croatian</item>
+        <item>Hungarian</item>
+        <item>Armenian</item>
+        <item>Inuktitut</item>
+        <item>Indonesian</item>
+        <item>Icelandic</item>
+        <item>Italian</item>
+        <item>Javanese</item>
+        <item>Japanese</item>
+        <item>Kannada</item>
+        <item>Georgian</item>
+        <item>Kazakh</item>
+        <item>Kirghiz</item>
+        <item>Kurmanji</item>
+        <item>Korean</item>
+        <item>Lao</item>
+        <item>Latin</item>
+        <item>Latvian</item>
+        <item>Lithuanian</item>
+        <item>Luxembourgish</item>
+        <item>Malayalam</item>
+        <item>Marathi</item>
+        <item>Macedonian</item>
+        <item>Maltese</item>
+        <item>Mongolian</item>
+        <item>Maori</item>
+        <item>Malay</item>
+        <item>Burmese</item>
+        <item>Nepali</item>
+        <item>Dutch</item>
+        <item>Norwegian</item>
+        <item>Occitan</item>
+        <item>Oriya</item>
+        <item>Panjabi</item>
+        <item>Polish</item>
+        <item>Portuguese</item>
+        <item>Pushto</item>
+        <item>Quechua</item>
+        <item>Romanian</item>
+        <item>Russian</item>
+        <item>Sanskrit</item>
+        <item>Sinhala</item>
+        <item>Slovak</item>
+        <item>Slovenian</item>
+        <item>Sindhi</item>
+        <item>Spanish</item>
+        <item>Albanian</item>
+        <item>Serbian</item>
+        <item>Sundanese</item>
+        <item>Swahili</item>
+        <item>Swedish</item>
+        <item>Syriac</item>
+        <item>Tamil</item>
+        <item>Tatar</item>
+        <item>Telugu</item>
+        <item>Tajik</item>
+        <item>Thai</item>
+        <item>Tigrinya</item>
+        <item>Tonga</item>
+        <item>Turkish</item>
+        <item>Uighur</item>
+        <item>Ukrainian</item>
+        <item>Urdu</item>
+        <item>Uzbek</item>
+        <item>Vietnamese</item>
+        <item>Yiddish</item>
+        <item>Yoruba</item>
+    </string-array>
+
+    <string-array name="dest_language_array">
+        <item>-- Select Source Language --</item>
+        <item>afrikaans</item>
+        <item>albanian</item>
+        <item>amharic</item>
+        <item>arabic</item>
+        <item>armenian</item>
+        <item>azerbaijani</item>
+        <item>basque</item>
+        <item>belarusian</item>
+        <item>bengali</item>
+        <item>bosnian</item>
+        <item>bulgarian</item>
+        <item>catalan</item>
+        <item>cebuano</item>
+        <item>chichewa</item>
+        <item>chinese (simplified)</item>
+        <item>chinese (traditional)</item>
+        <item>corsican</item>
+        <item>croatian</item>
+        <item>czech</item>
+        <item>danish</item>
+        <item>dutch</item>
+        <item>english</item>
+        <item>esperanto</item>
+        <item>estonian</item>
+        <item>filipino</item>
+        <item>finnish</item>
+        <item>french</item>
+        <item>frisian</item>
+        <item>galician</item>
+        <item>georgian</item>
+        <item>german</item>
+        <item>greek</item>
+        <item>gujarati</item>
+        <item>haitian creole</item>
+        <item>hausa</item>
+        <item>hawaiian</item>
+        <item>hebrew</item>
+        <item>hindi</item>
+        <item>hmong</item>
+        <item>hungarian</item>
+        <item>icelandic</item>
+        <item>igbo</item>
+        <item>indonesian</item>
+        <item>irish</item>
+        <item>italian</item>
+        <item>japanese</item>
+        <item>javanese</item>
+        <item>kannada</item>
+        <item>kazakh</item>
+        <item>khmer</item>
+        <item>korean</item>
+        <item>kurdish (kurmanji)</item>
+        <item>kyrgyz</item>
+        <item>lao</item>
+        <item>latin</item>
+        <item>latvian</item>
+        <item>lithuanian</item>
+        <item>luxembourgish</item>
+        <item>macedonian</item>
+        <item>malagasy</item>
+        <item>malay</item>
+        <item>malayalam</item>
+        <item>maltese</item>
+        <item>maori</item>
+        <item>marathi</item>
+        <item>mongolian</item>
+        <item>myanmar (burmese)</item>
+        <item>nepali</item>
+        <item>norwegian</item>
+        <item>odia</item>
+        <item>pashto</item>
+        <item>persian</item>
+        <item>polish</item>
+        <item>portuguese</item>
+        <item>punjabi</item>
+        <item>romanian</item>
+        <item>russian</item>
+        <item>samoan</item>
+        <item>scots gaelic</item>
+        <item>serbian</item>
+        <item>sesotho</item>
+        <item>shona</item>
+        <item>sindhi</item>
+        <item>sinhala</item>
+        <item>slovak</item>
+        <item>slovenian</item>
+        <item>somali</item>
+        <item>spanish</item>
+        <item>sundanese</item>
+        <item>swahili</item>
+        <item>swedish</item>
+        <item>tajik</item>
+        <item>tamil</item>
+        <item>telugu</item>
+        <item>thai</item>
+        <item>turkish</item>
+        <item>ukrainian</item>
+        <item>urdu</item>
+        <item>uyghur</item>
+        <item>uzbek</item>
+        <item>vietnamese</item>
+        <item>welsh</item>
+        <item>xhosa</item>
+        <item>yiddish</item>
+        <item>yoruba</item>
+        <item>zulu</item>
+    </string-array>
+</resources>

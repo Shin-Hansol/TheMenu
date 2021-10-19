@@ -5,15 +5,15 @@ import os
 import matplotlib.pyplot as plt
 from googletrans import Translator
 import sys
+from sourceLanguage import SRCLANGUAGES
+from destLanguage import DSTLANGUAGES
 
 def OCRTranslate(fileName, sLang, dLang) :
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 
-    sourceLang = sLang
-    destLang = dLang
+    sourceLang = SRCLANGUAGES[sLang]
+    destLang = DSTLANGUAGES[dLang]
     inputFileName = fileName
-
-    print(sourceLang, destLang, inputFileName)
 
     imageFileName = "image\{}.jpg".format(inputFileName)
     image = cv2.imread(imageFileName, cv2.IMREAD_COLOR)

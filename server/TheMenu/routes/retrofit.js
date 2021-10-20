@@ -13,18 +13,8 @@ var _storage = multer.diskStorage({
         });
     }
 });
-
-router.get('/get', function(req, res, next) {
-    console.log('GET 호출 / data : ' + req.query.data);
-    console.log('path : ' + req.path);
-    res.send('get success')
-});
-
-router.post('/post', function(req, res, next) {
-    console.log('POST 호출 / data : ' + req.body.data);
-    console.log('path : ' + req.path);
-    res.send('post success')
-});
+var app = express();
+const { spawn } = require('child_process');
 
 router.post('/upload',
     multer({
@@ -41,10 +31,10 @@ router.post('/upload',
 
             if (file) {
                 originalName = file.originalname;
-                filename = file.fileName;
+                fileName = file.filename;
                 mimeType = file.mimetype;
                 size = file.size;
-                console.log("execute" + fileName);
+                console.log("execute : " + fileName);
             } else {
                 console.log("request is null");
             }
@@ -54,12 +44,33 @@ router.post('/upload',
             console.dir(err.stack);
         }
 
-        console.log(req.file);
-        console.log(req.body);
-        res.redirect("/uploads/" + req.file.originalname);
+        let fn = req.file.filename;
+        let srcLang = req.body.src;
+        let dstLang = req.body.dst;
+
+        console.log(fn);
+        console.log(srcLang);
+        console.log(dstLang);
+
+        const pyProcess = spawn('python', ['./OCRTranslator.py', fn, srcLang, dstLang]); // 파이썬 실행
+
+        pyProcess.stdout.on('data', function(data) { // 파이썬의 print 후 sys.stdout.flush() 된 데이터에 대해서
+            console.log(data.toString());
+            res.write(data);
+        });
+
+        //res.write("SHS");
 
         return res.status(200).end();
     });
+
+
+
+router.get('/get', function(req, res, next) {
+    console.log('GET 호출 / data : ' + req.query.data);
+    console.log('path : ' + req.path);
+    res.send('get success')
+});
 
 router.put('/put/:id', function(req, res, next) {
     console.log('UPDATE 호출 / id : ' + req.params.id);

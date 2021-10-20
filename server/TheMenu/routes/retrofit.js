@@ -14,7 +14,7 @@ var _storage = multer.diskStorage({
     }
 });
 var app = express();
-const { spawn } = require('child_process');
+const spawn = require('child_process').spawn;
 
 router.post('/upload',
     multer({
@@ -47,21 +47,23 @@ router.post('/upload',
         let fn = req.file.filename;
         let srcLang = req.body.src;
         let dstLang = req.body.dst;
+        let result = '';
 
-        console.log(fn);
-        console.log(srcLang);
-        console.log(dstLang);
+        //fn = "korean.png";
+        //srcLang = "Korean";
+        //dstLang = "english";
 
-        const pyProcess = spawn('python', ['./OCRTranslator.py', fn, srcLang, dstLang]); // 파이썬 실행
+        const pyProcess = spawn('python', ['OCRTranslator.py', fn, srcLang, dstLang]); // 파이썬 실행
 
         pyProcess.stdout.on('data', function(data) { // 파이썬의 print 후 sys.stdout.flush() 된 데이터에 대해서
+            console.log(data);
             console.log(data.toString());
-            res.write(data);
+            result = data.toString();
+            res.write(result);
+            res.status(200).end();
         });
 
-        //res.write("SHS");
-
-        return res.status(200).end();
+        return 0;
     });
 
 

@@ -48,10 +48,13 @@ router.post('/upload',
         let srcLang = req.body.src;
         let dstLang = req.body.dst;
         let result = '';
-
+        
         //fn = "korean.png";
-        //srcLang = "Korean";
-        //dstLang = "english";
+        //srcLang = "eng";
+        //dstLang = "ko";
+        srcLang = srcLang.slice(1, -1);
+        dstLang = dstLang.slice(1, -1);
+        console.log(srcLang, dstLang);
 
         const pyProcess = spawn('python', ['OCRTranslator.py', fn, srcLang, dstLang]); // 파이썬 실행
 

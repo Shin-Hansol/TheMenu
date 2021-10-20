@@ -1,3 +1,4 @@
+from json import encoder
 import cv2
 import pytesseract
 from PIL import Image
@@ -5,6 +6,7 @@ import os
 import matplotlib.pyplot as plt
 from googletrans import Translator
 import sys
+import io
 from sourceLanguage import SRCLANGUAGES
 from destLanguage import DSTLANGUAGES
 
@@ -44,7 +46,7 @@ def OCRTranslate(fileName, sLang, dLang) :
     #resultFileName = "result\{}.txt".format("test1")
     #with open(resultFileName, 'w', encoding='utf-8') as f:
     #    f.write(result.text)
-
+    sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding= 'utf-8')
     print(result.text, end='')
     sys.stdout.flush()
 

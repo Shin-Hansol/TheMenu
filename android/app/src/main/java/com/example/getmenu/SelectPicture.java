@@ -56,7 +56,8 @@ public class SelectPicture extends AppCompatActivity{
 
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     private static final int REQUEST_IMAGE_LOAD = 101;
-    private final String URL = "http://10.0.2.2:3000/";
+    //private final String URL = "http://10.0.2.2:3000/";
+    private final String URL = "http://172.30.1.57:3000/";
     private final String TAG = "TestLog";
 
     @Override
@@ -109,7 +110,9 @@ public class SelectPicture extends AppCompatActivity{
                     try {
                         String result = response.body().string();
                         Log.v(TAG, "result = " + result);
-                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                        intent.putExtra("result", result);
+                        startActivity(intent);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -122,6 +125,7 @@ public class SelectPicture extends AppCompatActivity{
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.v(TAG, "Fail");
+                t.printStackTrace();
                 Toast.makeText(getApplicationContext(), "Response Fail", Toast.LENGTH_SHORT).show();
             }
         });

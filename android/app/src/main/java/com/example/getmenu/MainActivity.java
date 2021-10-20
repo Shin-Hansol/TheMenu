@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SelectPicture.class);
+                intent.putExtra("src", srcLang);
+                intent.putExtra("dst", dstLang);
                 startActivity(intent);
             }
         });
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         dstSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                srcLang = dstItems[i];
+                dstLang = dstItems[i];
             }
 
             @Override

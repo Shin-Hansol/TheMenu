@@ -97,7 +97,11 @@ public class SelectPicture extends AppCompatActivity{
         MultipartBody.Part body = MultipartBody.Part.createFormData("upload", photoFile.getName(), reqFile);
         RequestBody name = RequestBody.create("upload", MediaType.parse("text/plain"));
 
-        Call<ResponseBody> call_post = service.postImage(body, name);
+        Intent intent = getIntent();
+        String src = intent.getExtras().getString("src");
+        String dst = intent.getExtras().getString("dst");
+
+        Call<ResponseBody> call_post = service.postImage(body, name, src, dst);
         call_post.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -121,6 +125,7 @@ public class SelectPicture extends AppCompatActivity{
                 Toast.makeText(getApplicationContext(), "Response Fail", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
 

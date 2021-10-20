@@ -18,5 +18,6 @@ import retrofit2.http.Query;
 public interface ApiService {
     @Multipart
     @POST("/retrofit/upload")
-    Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name);
+    Call<ResponseBody> postImage(@Part MultipartBody.Part image, @Part("upload") RequestBody name,
+                                 @Part("src") String src, @Part("dst") String dst);
 }

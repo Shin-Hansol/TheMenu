@@ -56,8 +56,7 @@ public class SelectPicture extends AppCompatActivity{
 
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     private static final int REQUEST_IMAGE_LOAD = 101;
-    //private final String URL = "http://10.0.2.2:3000/";
-    private final String URL = "http://172.30.1.57:3000/";
+    private final String URL = "http://172.30.1.21:3000/";
     private final String TAG = "TestLog";
 
     @Override
